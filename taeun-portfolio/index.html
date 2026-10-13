@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김태운 — Vocalist · Producer</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --fg:#0b0b0b; --muted:#747474; --faint:#9a9a9a;
+    --line:#e7e7e7; --surface:#f5f5f4;
+    --mono:ui-monospace,"SF Mono",Menlo,monospace;
+    --serif:"Instrument Serif",Georgia,serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Pretendard",system-ui,sans-serif;
+    background:var(--bg); color:var(--fg);
+    -webkit-font-smoothing:antialiased; line-height:1.6; letter-spacing:-0.01em;
+  }
+  ::selection{background:var(--fg);color:var(--bg)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+  img{max-width:100%;display:block}
+
+  /* ---------- top bar ---------- */
+  header.bar{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(255,255,255,0.72);backdrop-filter:saturate(180%) blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .bar .name{font-weight:700;font-size:16px;letter-spacing:-0.02em}
+  .bar nav{display:flex;gap:28px}
+  .bar nav a{text-decoration:none;color:var(--muted);font-size:13px;font-weight:500;transition:color .2s}
+  .bar nav a:hover{color:var(--fg)}
+  @media(max-width:640px){ .bar nav{display:none} }
+
+  /* ---------- hero ---------- */
+  .hero{padding:220px 0 120px}
+  .hero .kicker{
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--faint);margin-bottom:34px;
+  }
+  .hero h1{font-size:clamp(56px,12vw,150px);line-height:0.94;font-weight:800;letter-spacing:-0.04em}
+  .hero h1 .en{
+    display:block;font-family:var(--serif);font-style:italic;font-weight:400;
+    font-size:clamp(30px,6vw,64px);color:var(--muted);letter-spacing:0;margin-top:20px;
+  }
+
+  /* section scaffolding */
+  section{padding:110px 0;border-top:1px solid var(--line)}
+  .sec-head{display:flex;gap:18px;align-items:baseline;margin-bottom:60px}
+  .sec-head .no{font-family:var(--mono);font-size:13px;color:var(--faint);letter-spacing:.1em}
+  .sec-head h2{font-size:clamp(26px,4vw,40px);font-weight:700;letter-spacing:-0.03em}
+  .sec-head .en{font-family:var(--serif);font-style:italic;font-size:clamp(20px,3vw,30px);color:var(--faint);font-weight:400}
+
+  /* ---------- intro ---------- */
+  .intro-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:72px;align-items:center}
+  .intro-grid .photo{aspect-ratio:414/532;background:var(--surface);overflow:hidden;border:1px solid var(--line)}
+  .intro-grid .photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.03)}
+  .intro-grid .lead{font-size:clamp(20px,2.6vw,30px);line-height:1.5;font-weight:500;letter-spacing:-0.02em}
+  .intro-grid .lead .em{color:var(--faint)}
+  .lead-placeholder{color:var(--faint);font-weight:400}
+  .lead-placeholder .mark{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    display:inline-block;border:1px dashed var(--faint);border-radius:6px;padding:3px 9px;margin-bottom:16px;color:var(--faint)}
+  @media(max-width:820px){ .intro-grid{grid-template-columns:1fr;gap:40px} }
+
+  /* ---------- education ---------- */
+  .edu{display:flex;flex-direction:column}
+  .edu .row{display:grid;grid-template-columns:120px 1fr;gap:40px;padding:30px 0;border-top:1px solid var(--line)}
+  .edu .row:first-child{border-top:none}
+  .edu .yr{font-family:var(--mono);font-size:14px;color:var(--muted);padding-top:4px}
+  .edu .inst{font-size:clamp(19px,2.4vw,26px);font-weight:600;letter-spacing:-0.02em}
+  .edu .desc{color:var(--muted);font-size:15px;margin-top:8px;line-height:1.55}
+  .edu .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;border:1px solid var(--fg);border-radius:999px;padding:3px 10px;margin-top:12px}
+  @media(max-width:640px){ .edu .row{grid-template-columns:1fr;gap:6px} }
+
+  /* ---------- performances ---------- */
+  .perf .prow{display:grid;grid-template-columns:90px 1fr auto;gap:30px;align-items:baseline;padding:26px 0;border-top:1px solid var(--line);transition:padding-left .3s}
+  .perf .prow:hover{padding-left:12px}
+  .perf .prow .yr{font-family:var(--mono);font-size:14px;color:var(--faint)}
+  .perf .prow .title{font-size:clamp(18px,2.2vw,24px);font-weight:600;letter-spacing:-0.02em}
+  .perf .prow .meta{font-size:13px;color:var(--muted);text-align:right;white-space:nowrap}
+  @media(max-width:640px){ .perf .prow{grid-template-columns:70px 1fr;gap:16px} .perf .prow .meta{grid-column:2;text-align:left} }
+
+  /* ---------- works ---------- */
+  .work-group{margin-bottom:84px}
+  .work-group:last-child{margin-bottom:0}
+  .work-group .gl{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:26px;display:flex;align-items:center;gap:12px}
+  .work-group .gl::after{content:"";flex:1;height:1px;background:var(--line)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:24px}
+  .card{border:1px solid var(--line);background:var(--bg);padding:26px;transition:border-color .25s}
+  .card:hover{border-color:var(--fg)}
+  .card .ct{font-size:20px;font-weight:650;letter-spacing:-0.02em}
+  .card .cs{font-size:13px;color:var(--muted);margin-top:4px;margin-bottom:22px}
+
+  /* ---------- big video carousel ---------- */
+  .vcar{position:relative;margin-bottom:28px}
+  .vtrack{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
+  .vtrack::-webkit-scrollbar{display:none}
+  .vslide{flex:0 0 100%;scroll-snap-align:center;padding:0 2px}
+  .vslide .vhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px;gap:16px}
+  .vslide .vt{font-size:clamp(20px,2.6vw,28px);font-weight:650;letter-spacing:-0.02em}
+  .vslide .vdemo{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 9px;margin-left:10px;vertical-align:middle;white-space:nowrap}
+  .vhint{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:9px;margin-bottom:18px}
+  .vhint .ln{width:26px;height:1px;background:var(--faint)}
+  .vslide .vs{font-family:var(--serif);font-style:italic;font-size:clamp(16px,2vw,22px);color:var(--muted)}
+  .vslide video{width:100%;display:block;background:#000;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
+  .vslide .na-badge{display:none}
+  .vslide.na video{display:none}
+  .vslide.na .na-badge{display:grid;place-items:center;aspect-ratio:16/9;background:var(--surface);border:1px dashed var(--faint);
+    font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--faint)}
+
+  .vcar .vnav{display:flex;align-items:center;justify-content:space-between;margin-top:22px}
+  .vcar .vdots{display:flex;gap:9px}
+  .vcar .vdot{width:7px;height:7px;border-radius:50%;background:var(--line);border:none;padding:0;cursor:pointer;transition:background .25s,transform .25s}
+  .vcar .vdot.on{background:var(--fg);transform:scale(1.35)}
+  .vcar .varrows{display:flex;gap:10px}
+  .vcar .varr{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg);cursor:pointer;display:grid;place-items:center;transition:border-color .2s,opacity .2s}
+  .vcar .varr:hover{border-color:var(--fg)}
+  .vcar .varr svg{width:18px;height:18px;stroke:var(--fg);fill:none;stroke-width:1.6}
+  .vcar .varr[disabled]{opacity:.3;pointer-events:none}
+  .vcount{font-family:var(--mono);font-size:12px;color:var(--faint)}
+
+  /* ---------- audio player ---------- */
+  .player{display:flex;align-items:center;gap:16px}
+  .player .pbtn{flex:0 0 auto;width:48px;height:48px;border-radius:50%;border:1px solid var(--fg);background:var(--fg);color:var(--bg);cursor:pointer;display:grid;place-items:center;transition:transform .15s,background .2s}
+  .player .pbtn:hover{transform:scale(1.06)}
+  .player .pbtn svg{width:16px;height:16px;fill:currentColor}
+  .player .pbtn .ic-pause{display:none}
+  .player.playing .pbtn .ic-play{display:none}
+  .player.playing .pbtn .ic-pause{display:block}
+  .player .track{flex:1;min-width:0}
+  .player .bar-bg{height:4px;background:var(--line);border-radius:4px;position:relative;cursor:pointer}
+  .player .bar-fill{position:absolute;left:0;top:0;height:100%;width:0;background:var(--fg);border-radius:4px}
+  .player .bar-bg::after{content:"";position:absolute;inset:-9px 0}
+  .player .time{display:flex;justify-content:space-between;margin-top:9px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .player.na{opacity:.55;pointer-events:none}
+  .na-badge{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint)}
+  .card .na-badge{display:none;border:1px dashed var(--faint);border-radius:6px;padding:14px;text-align:center}
+  .player.na + .na-badge{display:block}
+
+  /* ---------- contact ---------- */
+  .contact{text-align:center;padding:60px 0 20px}
+  .contact .big{font-family:var(--serif);font-style:italic;font-size:clamp(46px,11vw,110px);font-weight:400;letter-spacing:-0.01em;line-height:1;margin-bottom:28px}
+  .contact a{display:inline-block;color:var(--fg);text-decoration:none;font-size:clamp(18px,2.6vw,26px);font-weight:500;border-bottom:2px solid var(--line);transition:border-color .2s}
+  .contact a:hover{border-color:var(--fg)}
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--faint);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between}
+  @media(max-width:640px){ footer .wrap{flex-direction:column;gap:8px} }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="name">김태운</div>
+    <nav>
+      <a href="#about">소개</a>
+      <a href="#education">학력</a>
+      <a href="#performance">공연</a>
+      <a href="#works">작업</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" style="border-top:none">
+    <div class="wrap">
+      <div class="kicker">Vocalist · Producer</div>
+      <h1>김태운<span class="en">Taeun Kim</span></h1>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head"><span class="no">01</span><h2>소개</h2><span class="en">About</span></div>
+      <div class="intro-grid">
+        <div class="photo"><img src="assets/photo/profile.jpg" alt="김태운 프로필"></div>
+        <p class="lead">제가 느끼는 것을 듣는 사람에게 전하는 음악을 합니다. 음악은 <span class="em">또 하나의 언어</span>라고 생각해, 때로는 가사로 때로는 멜로디로 하고 싶은 말을 담습니다. 보컬과 프로듀싱을 함께 전공하며 전문적인 발성 이론과 보컬 테크닉, 비트메이킹, 음향, 사운드 디자인을 다룹니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap">
+      <div class="sec-head"><span class="no">02</span><h2>학력</h2><span class="en">Education</span></div>
+      <div class="edu">
+        <div class="row">
+          <div class="yr">2024—</div>
+          <div>
+            <div class="inst">Berklee College of Music</div>
+            <div class="desc">Contemporary Writing &amp; Production / Electronic Production &amp; Design 복수전공 · 2024 입학</div>
+            <span class="tag">SCHOLARSHIP · 장학생</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="yr">—2022</div>
+          <div>
+            <div class="inst">서울공연예술고등학교</div>
+            <div class="desc">실용음악과 보컬전공 (2022 중퇴)</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="yr">사사</div>
+          <div>
+            <div class="inst">허성 교수</div>
+            <div class="desc">서울예술대학교 · 동아방송예술대학교 · 호원대학교 출강</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERFORMANCE -->
+  <section id="performance">
+    <div class="wrap">
+      <div class="sec-head"><span class="no">03</span><h2>공연 · 협업</h2><span class="en">Performance</span></div>
+      <div class="perf">
+        <div class="prow"><span class="yr">2025</span><span class="title">Berklee Japan Caf Show</span><span class="meta">보컬</span></div>
+        <div class="prow"><span class="yr">2025</span><span class="title">Pleasant Hill Baptist Church — Black Gospel 공연</span><span class="meta">보컬</span></div>
+        <div class="prow"><span class="yr">2023–24</span><span class="title">대학 연합공연</span><span class="meta">기획 · 총책임 · 보컬</span></div>
+        <div class="prow"><span class="yr">2023</span><span class="title">순복음교회 가스펠 특송</span><span class="meta">보컬</span></div>
+        <div class="prow"><span class="yr">2022</span><span class="title">서울공연예술고 보컬페스티벌 · 새내기 공연</span><span class="meta">보컬</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works">
+    <div class="wrap">
+      <div class="sec-head"><span class="no">04</span><h2>작업</h2><span class="en">Works</span></div>
+
+      <div class="work-group">
+        <div class="gl">Vocal · 보컬</div>
+        <div class="cards">
+          <div class="card">
+            <div class="ct">Too Good</div><div class="cs">커버곡 · Christian Kuria</div>
+            <div class="player" data-src="assets/audio/cover-1.mp3"></div>
+            <div class="na-badge">준비 중</div>
+          </div>
+          <div class="card">
+            <div class="ct">잘 자 (sleep tight)</div><div class="cs">커버곡 · Crush</div>
+            <div class="player" data-src="assets/audio/cover-2.mp3"></div>
+            <div class="na-badge">준비 중</div>
+          </div>
+          <div class="card">
+            <div class="ct">How Can I Fix It</div><div class="cs">자작곡</div>
+            <div class="player" data-src="assets/audio/original-1.mp3"></div>
+            <div class="na-badge">준비 중</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-group">
+        <div class="gl">Producing · 프로듀싱</div>
+
+        <!-- 큰 영상 가로 슬라이더 -->
+        <div class="vhint"><span>옆으로 넘겨 더 보기</span><span class="ln"></span></div>
+        <div class="vcar">
+          <div class="vtrack">
+            <div class="vslide" data-src="assets/video/film.mp4">
+              <div class="vhead"><span class="vt">영화음악 <span class="vdemo">Demo</span></span><span class="vs">Film Scoring</span></div>
+              <video controls preload="metadata" playsinline src="assets/video/film.mp4"></video>
+              <div class="na-badge">준비 중</div>
+            </div>
+            <div class="vslide" data-src="assets/video/ad.mp4">
+              <div class="vhead"><span class="vt">광고음악 <span class="vdemo">Demo</span></span><span class="vs">Advertisement Music</span></div>
+              <video controls preload="metadata" playsinline src="assets/video/ad.mp4"></video>
+              <div class="na-badge">준비 중</div>
+            </div>
+            <div class="vslide" data-src="assets/video/foley.mp4">
+              <div class="vhead"><span class="vt">폴리 · 사운드 디자인 <span class="vdemo">Demo</span></span><span class="vs">Foley &amp; Sound Design</span></div>
+              <video controls preload="metadata" playsinline src="assets/video/foley.mp4"></video>
+              <div class="na-badge">준비 중</div>
+            </div>
+          </div>
+          <div class="vnav">
+            <div class="vdots" id="vdots"></div>
+            <div style="display:flex;align-items:center;gap:18px">
+              <span class="vcount"><span id="vnum">1</span> / 3</span>
+              <div class="varrows">
+                <button class="varr" id="vprev" aria-label="이전 영상"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+                <button class="varr" id="vnext" aria-label="다음 영상"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="ct">비트</div><div class="cs">Beat</div>
+            <div class="player" data-src="assets/audio/beat-1.mp3"></div>
+            <div class="na-badge">준비 중</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact">
+      <p class="big">Contact</p>
+      <a href="mailto:taeunbk@gmail.com">taeunbk@gmail.com</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 김태운 (Taeun Kim)</span>
+    <span>Vocalist · Producer</span>
+  </div>
+</footer>
+
+<script>
+/* ===== 하나만 재생 ===== */
+document.addEventListener('play', function(e){
+  document.querySelectorAll('audio, video').forEach(function(m){ if(m!==e.target) m.pause(); });
+}, true);
+
+/* ===== 커스텀 오디오 플레이어 ===== */
+function fmt(t){ if(!isFinite(t)) return "0:00"; var m=Math.floor(t/60), s=Math.floor(t%60); return m+":"+(s<10?"0":"")+s; }
+document.querySelectorAll('.player').forEach(function(p){
+  var src=p.getAttribute('data-src');
+  p.innerHTML='<button class="pbtn" aria-label="재생"><svg class="ic-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="ic-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="track"><div class="bar-bg"><div class="bar-fill"></div></div><div class="time"><span class="cur">0:00</span><span class="dur">0:00</span></div></div><audio preload="metadata" src="'+src+'"></audio>';
+  var audio=p.querySelector('audio'),btn=p.querySelector('.pbtn'),barbg=p.querySelector('.bar-bg'),fill=p.querySelector('.bar-fill'),cur=p.querySelector('.cur'),dur=p.querySelector('.dur');
+  audio.addEventListener('error',function(){p.classList.add('na');});
+  audio.addEventListener('loadedmetadata',function(){dur.textContent=fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){cur.textContent=fmt(audio.currentTime);fill.style.width=(audio.currentTime/audio.duration*100||0)+'%';});
+  audio.addEventListener('play',function(){p.classList.add('playing');});
+  audio.addEventListener('pause',function(){p.classList.remove('playing');});
+  audio.addEventListener('ended',function(){p.classList.remove('playing');fill.style.width='0%';});
+  btn.addEventListener('click',function(){audio.paused?audio.play():audio.pause();});
+  barbg.addEventListener('click',function(e){var r=barbg.getBoundingClientRect();audio.currentTime=(e.clientX-r.left)/r.width*audio.duration;});
+});
+
+/* ===== 영상 준비중 표시 ===== */
+document.querySelectorAll('.vslide video').forEach(function(v){ v.addEventListener('error',function(){ v.closest('.vslide').classList.add('na'); }); });
+
+/* ===== 영상 가로 슬라이더 ===== */
+(function(){
+  var track=document.querySelector('.vtrack');
+  if(!track) return;
+  var slides=track.querySelectorAll('.vslide');
+  var dotsBox=document.getElementById('vdots'), vnum=document.getElementById('vnum');
+  var prev=document.getElementById('vprev'), next=document.getElementById('vnext');
+  var idx=0;
+  slides.forEach(function(s,i){ var d=document.createElement('button'); d.className='vdot'+(i===0?' on':''); d.setAttribute('aria-label',(i+1)+'번 영상'); d.addEventListener('click',function(){go(i);}); dotsBox.appendChild(d); });
+  function go(i){ i=Math.max(0,Math.min(slides.length-1,i)); track.scrollTo({left:i*track.clientWidth,behavior:'smooth'}); }
+  prev.addEventListener('click',function(){go(idx-1);});
+  next.addEventListener('click',function(){go(idx+1);});
+  function update(){
+    idx=Math.round(track.scrollLeft/track.clientWidth);
+    vnum.textContent=idx+1;
+    dotsBox.querySelectorAll('.vdot').forEach(function(d,i){ d.classList.toggle('on',i===idx); });
+    prev.disabled=idx===0; next.disabled=idx===slides.length-1;
+  }
+  track.addEventListener('scroll',function(){ window.requestAnimationFrame(update); });
+  window.addEventListener('resize',function(){ track.scrollLeft=idx*track.clientWidth; });
+  update();
+})();
+</script>
+</body>
+</html>
